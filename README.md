@@ -53,10 +53,6 @@ The client runs on http://localhost:5173 and the API on http://localhost:5001.
 - **In the app:** Gemini generates the title, description, tags and tagline. Everything else is regular code.
 - **During development:** I used an AI coding assistant to help write and debug the code and to draft this README. I defined the requirements and structure, tested the app locally and reviewed the code.
 
-## Deployment
-
-In production the server also serves the built client, so the app runs as a single service. `render.yaml` deploys it to Render: choose New → Blueprint, select this repo and enter `GEMINI_API_KEY`.
-
 ## Known limitations
 
 - Cards are kept in memory and are cleared on refresh

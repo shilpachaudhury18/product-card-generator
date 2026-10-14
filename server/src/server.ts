@@ -1,5 +1,3 @@
-import { existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
 import { createApp } from './app.js';
 import { env } from './config/env.js';
 import { makeGenerator } from './services/geminiService.js';
@@ -10,15 +8,10 @@ if (!env.GEMINI_API_KEY) {
 
 const models = [env.GEMINI_MODEL, ...env.GEMINI_FALLBACK_MODELS];
 
-// in production the api also serves the built client, if it's been built
-const clientDir = fileURLToPath(new URL('../../client/dist', import.meta.url));
-const serveClient = env.NODE_ENV === 'production' && existsSync(clientDir);
-
 const app = createApp({
   generator: makeGenerator(env.GEMINI_API_KEY, models),
   corsOrigins: env.CORS_ORIGIN,
   maxRequestsPerMinute: env.RATE_LIMIT_MAX,
-  clientDir: serveClient ? clientDir : undefined,
 });
 
 const server = app.listen(env.PORT, () => {
